@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RUM Core installation example</title>
+    <!-- Replace YOUR_PUBLIC_PROJECT_KEY with the key from Project settings. -->
+    <script
+      defer
+      src="http://localhost:4000/tracker.js"
+      data-key="YOUR_PUBLIC_PROJECT_KEY"
+    ></script>
+  </head>
+  <body>
+    <h1>My monitored website</h1>
+    <p>The tracker records this page and its fetch / XMLHttpRequest activity.</p>
+    <button id="request">Send an example API request</button>
+    <p id="result" aria-live="polite"></p>
+    <script>
+      document.getElementById('request').addEventListener('click', async () => {
+        const result = document.getElementById('result');
+        try {
+          const response = await fetch('/api/example');
+          result.textContent = `Request returned HTTP ${response.status}.`;
+        } catch {
+          result.textContent =
+            'This example endpoint is unavailable. Failed requests are recorded too.';
+        }
+      });
+    </script>
+  </body>
+</html>
