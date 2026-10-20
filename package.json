@@ -1,0 +1,50 @@
+{
+  "name": "rum-core-mern",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Real user monitoring with React, Express and MongoDB. Plain, readable JavaScript.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "npm run build:tracker && concurrently -k -n api,web -c cyan,green \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "vite --config client/vite.config.js",
+    "build:tracker": "node tracker/build.js",
+    "build": "npm run build:tracker && vite build --config client/vite.config.js",
+    "start": "node server/index.js",
+    "seed": "node server/seed.js",
+    "demo": "npm run build && node scripts/demo.js",
+    "test": "node --test --test-concurrency=1 server/tests/*.test.js tracker/tests/*.test.js",
+    "test:browser": "playwright test",
+    "check": "node scripts/check.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.8",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "lucide-react": "^1.58.0",
+    "mongoose": "^9.11.2",
+    "playwright": "^1.64.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "web-vitals": "^6.2.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^10.0.6",
+    "esbuild": "^0.28.2",
+    "mongodb-memory-server": "^11.3.0",
+    "prettier": "^3.9.10",
+    "supertest": "^7.3.1",
+    "vite": "^8.3.4"
+  }
+}
