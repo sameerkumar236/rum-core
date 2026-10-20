@@ -14,7 +14,11 @@ export async function api(path, options = {}) {
       window.dispatchEvent(new Event('rum-session-expired'));
     }
     const error = new Error(
-      data.error || data.message || 'The request could not be completed. Please try again.',
+      data.error ||
+        data.message ||
+        (response.status === 502
+          ? 'Bad Gateway (502): The backend server restarted or could not be reached. Please try again.'
+          : 'The request could not be completed. Please try again.'),
     );
     error.status = response.status;
     throw error;
