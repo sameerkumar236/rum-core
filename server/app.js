@@ -20,6 +20,7 @@ const directory = path.dirname(fileURLToPath(import.meta.url));
 export function createApp(options = {}) {
   const config = { ...defaults, ...options };
   const app = express();
+  app.set("trust proxy", 1);
   app.disable('x-powered-by');
   if (config.trustProxy) app.set('trust proxy', 1);
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));

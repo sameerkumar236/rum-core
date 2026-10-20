@@ -177,12 +177,16 @@ export async function scanWebsiteBrowser(input, options = {}) {
         },
       );
     } catch (error) {
-      if (error === timeoutError || controller.signal.aborted) throw timeoutError;
-      throw new AppError(
-        503,
-        'Browser scanning is unavailable. Install the configured Chrome/Chromium browser on the server, or use HTTP mode.',
-      );
-    }
+  console.error("Playwright browser launch failed:", error);
+
+  if (error === timeoutError || controller.signal.aborted)
+    throw timeoutError;
+
+  throw new AppError(
+    503,
+    "Browser scanning is unavailable. Install the configured Chrome/Chromium browser on the server, or use HTTP mode.",
+  );
+}
 
     await acquire(
       browser.newContext({
